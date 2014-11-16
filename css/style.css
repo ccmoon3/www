@@ -1,32 +1,31 @@
-/*
-.body        {
-    background: url(http://i.imgur.com/hgzVvzN.jpg);
-    background-attachment:fixed;
-    background-position: center;
+.button-reset  {
+  display: block;
+  margin-left: auto;
+  margin-right: 0px;
+  margin-top: 0px;
+  position: relative;
+  width: 90px !important;
+  height: 20px !important;
+  background: rgb(116,98,108);
+  font-size: 16px;
+  color:rgb(216,204,211)!important;
+  text-align: center;
+  border: 2px solid rgb(170,151,162);
+  border-radius: 15px;
+  -webkit-transition: all .15s;
+  transition: all .15s;
 }
-.ngHeaderCell {
-    background-color:rgba(178,129,157,0.85) !important;
-    color:#FFFFFF  !important;
-    position: absolute;
-    top: 0;
-}*/
-
 
 canvas {
-    padding: 0 px;
-    margin: auto;
-    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30%;
+}
+.no-padding {
+    padding: 0px !important;
+    width:100%;
 }
 
-.ng-hide-add, .ng-hide-remove {
-    /* ensure visibility during the transition */
-    display: block !important; /* yes, important */
-}
-.cssSlideUp {
-    transition: .25s linear all;
-    height: 80px;
-    overflow: hidden;
-}
-.cssSlideUp.ng-hide {
-    height:0;
+.no-top-width {
+  border-top-width: 0px !important;
 }

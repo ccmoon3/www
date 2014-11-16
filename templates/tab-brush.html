@@ -8,34 +8,30 @@
     </div>
 </ion-header-bar>
 
-  <ion-content class='has-header' padding="true" style="background-color:rgba(178,129,157,0.85)!important;">
+  <ion-content class='has-header has-footer has-tabs' padding="true" style="background-color:rgba(178,129,157,0.85)!important;">
+      <button ng-show="isEffect()" class="button button-reset" ng-click="Reset()">Reset</button>
       <canvas id="after" ></canvas>
-      <button class="button button-clear button-light" ng-click="Test()">filterTest</button>
-      <button class="button button-clear button-light" ng-click="Reset()">Clear</button>
+ <!--     <button class="button button-clear button-light" ng-click="Test()">filterTest</button>-->
 
   </ion-content>
+<ion-footer-bar ng-show="show" class="no-top-width" style="background-color:rgba(116,98,108,1)!important;">
+    <div class="range range-dark no-padding" >
+        <h4 style="color:#F8F8F8;">Size</h4>
+        <input type="range" name="size" min="0" max="99" ng-model="size" ng-change="resizeBrush()">
+        <i class="icon ion-plus-round" style="color:#F8F8F8;margin-right:7px"></i>
+        <h4 style="color:#F8F8F8;">{{size}}</h4>
+    </div>
+</ion-footer-bar>
+<!--
+<ion-footer-bar class="no-top-width " style="background-color:rgba(178,129,157,1)!important;">
+        <div class="range no-padding" >
+            <h4 style="color:#F8F8F8;">Intensity</h4>
+            <input type="range" name="intensity" min="0" max="100" value="50">
+            <i class="icon ion-plus" style="color:#F8F8F8;"></i>
+        </div>
+</ion-footer-bar>-->
 
 <div ng-hide="false" class="cssSlideUp" style="background-color:rgba(178,129,157,0.9)!important;">
+
 </div>
 
-<div class="bar bar-subfooter" style="background-color:rgba(178,129,157,0.85)!important;">
-    <div class="col col-75">
-        <div class="row">
-            <div class="range">
-                <h4 style="color:#F8F8F8;">Size</h4>
-                <input type="range" name="size" min="0" max="100" value="50">
-                <i class="icon ion-plus" style="color:#F8F8F8;"></i>
-            </div>
-        </div>
-        <div class="row">
-            <div class="range">
-                <h4 style="color:#F8F8F8;">Intensity</h4>
-                <input type="range" name="intensity" min="0" max="100" value="50">
-                <i class="icon ion-plus" style="color:#F8F8F8;"></i>
-            </div>
-        </div>
-    </div>
-    <div class="col">
-        <button class="button button-icon icon ion-reply" ng-click="takePhoto()" style="color:#F8F8F8"></button>
-    </div>
-</div>
