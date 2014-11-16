@@ -50,8 +50,8 @@ $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|file|blob|cdvfile|cont
    }
       $scope.Reset = function(){
 
-         stage.removeChild(bitmap,cursor);
-         stage.update();
+         stage.clear();
+         UploadPicture(image.src);
          window.isEffect = false;
       }
 
