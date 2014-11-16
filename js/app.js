@@ -36,7 +36,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       templateUrl: "templates/tabs.html",
       controller: 'BrushCtrl'
     })
-
+/*     .state('main', {
+          url: "/main",
+          templateUrl: "templates/main.html",
+          controller: 'BrushCtrl'
+        })
+*/
     // Each tab has its own nav history stack:
 
     .state('tab.brush', {

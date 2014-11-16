@@ -1,0 +1,58 @@
+<ion-tabs class="tabs-icon-top tabs-background-dark tabs-light">
+
+    <!-- Dashboard Tab-->
+    <ion-tab title="Photo" icon="icon ion-images" ng-click="ShowPictures()">
+        <ion-nav-view name="tab-photo"></ion-nav-view>
+    </ion-tab>
+
+    <!-- Friends Tab -->
+    <ion-tab  title="Brush" icon="icon ion-levels" href="#/tab/brush">
+        <ion-nav-view name="tab-brush"></ion-nav-view>
+    </ion-tab>
+    <ion-header-bar align-title="center" class=" bar-dark">
+        <div class="buttons">
+            <button class="button button-icon icon ion-camera" ng-click="takePhoto()"></button>
+        </div>
+        <h1 class="title" style="color:#FF0066;font-weight: bold;">COLORMIC</h1>
+        <div class="buttons">
+            <button class="button button-clear button-positive" ng-show="true" ng-click="savePhoto()">Save</button>
+        </div>
+    </ion-header-bar>
+
+    <ion-content class='has-header' padding="true" style="background-color:rgba(178,129,157,0.85)!important;">
+        <canvas id="after" ></canvas>
+        <button class="button button-clear button-light" ng-click="Test()">filterTest</button>
+
+    </ion-content>
+
+    <div ng-hide="false" class="cssSlideUp" style="background-color:rgba(178,129,157,0.9)!important;">
+    </div>
+
+    <div class="bar bar-subfooter" style="background-color:rgba(178,129,157,0.85)!important;">
+        <div class="col col-75">
+            <div class="row">
+                <div class="range">
+                    <h4 style="color:#F8F8F8;">Size</h4>
+                    <input type="range" name="size" min="0" max="100" value="50">
+                    <i class="icon ion-plus" style="color:#F8F8F8;"></i>
+                </div>
+            </div>
+            <div class="row">
+                <div class="range">
+                    <h4 style="color:#F8F8F8;">Intensity</h4>
+                    <input type="range" name="intensity" min="0" max="100" value="50">
+                    <i class="icon ion-plus" style="color:#F8F8F8;"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <button class="button button-icon icon ion-reply" ng-click="takePhoto()" style="color:#F8F8F8"></button>
+        </div>
+    </div>
+
+    <!-- Account Tab -->
+    <ion-tab title="Filter" icon="icon ion-cube" ng-click="Filters()">
+        <ion-nav-view name="tab-filter"></ion-nav-view>
+    </ion-tab>
+
+</ion-tabs>

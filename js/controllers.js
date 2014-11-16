@@ -5,6 +5,24 @@ $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|file|blob|cdvfile|cont
 })
 
 .controller('BrushCtrl', function($scope,$state,Camera) {
+                var stage = new createjs.Stage("after");
+         		var isDrawing;
+         		var drawingCanvas;
+         		var oldPt;
+         		var oldMidPt;
+         		var image;
+                var imageAfter;
+         		var bitmap;
+         		var blur;
+         		var cursor;
+         		var size = 10;
+         		var rect;
+                var canvas = document.getElementById('after');
+                var Width;
+                var Height;
+                var scale = 1;
+                var MaxWidth = 0.95*window.innerWidth;
+                var MaxHeight = 0.8*window.innerHeight;
 
    $scope.savePhoto = function(){
        window.canvas2ImagePlugin.saveImageDataToLibrary(
@@ -19,13 +37,16 @@ $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|file|blob|cdvfile|cont
            document.getElementById('after')
        );
    }
+      $scope.Reset = function(){
+         stage.clear();
+      }
 
    $scope.takePhoto = function() {
          Camera.getPicture().then(function(imageURI) {
               console.log(imageURI);
               $scope.lastPhoto = imageURI;
               $scope.ImageURI =  imageURI;
-             UploadPicture(imageURI);
+              UploadPicture(imageURI);
          }, function(err) {
             console.err(err);
          }, {
@@ -53,7 +74,8 @@ $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|file|blob|cdvfile|cont
 
                                 var canvas = document.getElementById('after');
                                 var ctx = canvas.getContext('2d');
-                                       var MaxWidth = window.innerWidth - 20;
+                                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                                stage.clear();
                                 var image = new Image();
 
                               image.onload = function() {
@@ -81,68 +103,23 @@ $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|file|blob|cdvfile|cont
                             $scope.Test = function() {
                               $state.go('tab.filter');
                             };
-            var stage;
-         		var isDrawing;
-         		var drawingCanvas;
-         		var oldPt;
-         		var oldMidPt;
-         		var image;
-                var imageAfter;
-         		var bitmap;
-         		var blur;
-         		var cursor;
-         		var size = 20;
-         		var rect;
-                var canvas = document.getElementById('after');
-                var Width;
-                var Height;
-                var scale = 1;
-                var MaxWidth = 0.95*window.innerWidth;
-                var MaxHeight = 0.8*window.innerHeight;
 
-       function loadImage(imageURI) {
-
-             var ctx = canvas.getContext('2d');
-             image = new Image();
-             image.onload = function() {
-                     			//todo:wrap function
-        /*         if(image.width> MaxWidth ||image.height> MaxHeight||(image.height< MaxHeight && image.width< MaxWidth)){
-                     scale =  Math.min(MaxWidth / image.width,MaxHeight / image.height );
-                     image.height = scale * image.height;
-                     image.width = scale * image.width;
-                 }*/
-                 canvas.width = image.width;
-                 canvas.height = image.height;
-      //           Width = canvas.width;
-      //           Height = canvas.height;
-                 ctx.drawImage(image, 0, 0, image.width, image.height);
-             };
-              image.src =  document.getElementById('ori').src;
-        //        image.src =imageURI;
-        }
-
-         	/*	window.localStorage.setItem( 'item_name', item_value);
-                 item_value = window.localStorage.getItem( 'item_name' );
-                 window.localStorage.removeItem( 'item_name' );*/
-
-
-         		 $scope.filterTest =function() {
+         		 $scope.Filters =function() {
          			image = new Image();
          			imageAfter = new Image();
 
-             //        loadImage("img/test.jpg");
-              //       image.src = document.getElementById('ori').src;
-                       image.src = canvas.toDataURL() ;
+                      canvas = document.getElementById('after');
+                      image.src = canvas.toDataURL() ;
 
                      Caman("#after",function () {
-                            this.revert();
+                            this.reloadCanvasData();
                             this.greyscale();
                             this.render(function () {
                                  imageAfter.src = this.toBase64();
                              });
                       })
                      imageAfter.onload = handleComplete;
-         			 stage = new createjs.Stage("after");
+                     stage = new createjs.Stage("after");
          		}
          		function handleComplete() {
          			createjs.Touch.enable(stage);
@@ -155,9 +132,9 @@ $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|file|blob|cdvfile|cont
 
          			drawingCanvas = new createjs.Shape();
 
-         			//todo:wrap function
-         			 Height=image.height;
-         			 Width=image.width ;
+         			Height = image.height;
+         			Width = image.width;
+
          			bitmap = new createjs.Bitmap(image);
          	        blur = new createjs.Bitmap(imageAfter);
 
@@ -195,7 +172,7 @@ $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|file|blob|cdvfile|cont
 
          			var midPoint = new createjs.Point((oldPt.x + touch.pageX -rect.left)/2, (oldPt.y + touch.pageY -rect.top)/2);
 
-         			drawingCanvas.graphics.setStrokeStyle(size, "round", "round")
+         			drawingCanvas.graphics.setStrokeStyle(1.8*size, "round", "round")
          				.beginStroke("rgba(0,0,0,0.15)")
          				.moveTo(midPoint.x, midPoint.y)
          				.curveTo(oldPt.x, oldPt.y, oldMidPt.x, oldMidPt.y);
@@ -310,9 +287,9 @@ $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|file|blob|cdvfile|cont
          			 Height=image.height;
          			 Width=image.width ;
          			bitmap = new createjs.Bitmap(image);
-         	        blur = new createjs.Bitmap(imageAfter);
+         	//        blur = new createjs.Bitmap(imageAfter);
 
-         			stage.addChild(blur,bitmap);
+         			stage.addChild(bitmap);
          			updateCacheImage(false);
 
          			cursor = new createjs.Shape(new createjs.Graphics().beginFill("#FFFFFF").drawCircle(0, 0, size));
